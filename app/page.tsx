@@ -1,19 +1,11 @@
-type Post = {
-  id: number;
-  title: string;
-};
+import SlowComponent from './SlowComponent';
 
 export default async function Home() {
-  const res = await fetch('https://jsonplaceholder.typicode.com/posts');
-  const posts: Post[] = await res.json();
   return (
     <div>
-      <h1>記事一覧</h1>
-      <ul>
-        {posts.map((post) => (
-          <li key={post.id}>{post.title}</li>
-        ))}
-      </ul>
+      <h1>Main Contetn(すぐ)</h1>
+
+      <SlowComponent />
     </div>
   );
 }
