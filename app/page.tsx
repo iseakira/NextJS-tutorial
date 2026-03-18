@@ -1,11 +1,25 @@
-import SlowComponent from './SlowComponent';
+'use client';
 
-export default async function Home() {
+import { FormEvent } from 'react';
+
+export default function Home() {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = new FormData(e.currentTarget);
+    const name = form.get('name');
+
+    await fetch('/api/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name }),
+    });
+  };
   return (
-    <div>
-      <h1>Main Contetn(すぐ)</h1>
-
-      <SlowComponent />
-    </div>
+    <form onSubmit={handleSubmit}>
+      <input type="text" name="name" />
+      <button type="submit">送信</button>
+    </form>
   );
 }
